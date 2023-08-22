@@ -34,4 +34,11 @@ type Like{
     user_id: ID!
     post_id: ID!
 }
+
+type Query{
+    User(ID: ID): User
+    Users: [User]
+    Post: Post
+    Posts: [Post]
+}
 `;
