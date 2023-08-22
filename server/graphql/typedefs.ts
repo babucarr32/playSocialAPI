@@ -26,8 +26,8 @@ type Comment{
     comment: String!
     user_id: ID!
     post_id: ID!
-    likes: Number
-    dislikes: Number
+    likes: [Like]
+    dislikes: [Like]
 }
 
 type Like{
@@ -36,9 +36,9 @@ type Like{
 }
 
 type Query{
-    User(ID: ID): User
-    Users: [User]
-    Post: Post
-    Posts: [Post]
+    user(ID: ID!): User
+    users: [User]
+    post: Post
+    posts: [Post]
 }
 `;

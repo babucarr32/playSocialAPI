@@ -1,6 +1,7 @@
 export const data = {
   users: [
     {
+      id: 0,
       username: "user1",
       fullName: "User One",
       email: "user1@example.com",
@@ -10,6 +11,7 @@ export const data = {
       coverImage: "cover1.jpg",
     },
     {
+      id: 1,
       username: "user2",
       fullName: "User Two",
       email: "user2@example.com",
@@ -19,6 +21,7 @@ export const data = {
       coverImage: "cover2.jpg",
     },
     {
+      id: 2,
       username: "user3",
       fullName: "User Three",
       email: "user3@example.com",
@@ -28,6 +31,7 @@ export const data = {
       coverImage: "cover3.jpg",
     },
     {
+      id: 3,
       username: "user4",
       fullName: "User Four",
       email: "user4@example.com",
@@ -37,6 +41,7 @@ export const data = {
       coverImage: "cover4.jpg",
     },
     {
+      id: 4,
       username: "user5",
       fullName: "User Five",
       email: "user5@example.com",
@@ -46,6 +51,7 @@ export const data = {
       coverImage: "cover5.jpg",
     },
     {
+      id: 5,
       username: "user6",
       fullName: "User Six",
       email: "user6@example.com",
@@ -55,6 +61,7 @@ export const data = {
       coverImage: "cover6.jpg",
     },
     {
+      id: 6,
       username: "user7",
       fullName: "User Seven",
       email: "user7@example.com",
@@ -64,6 +71,7 @@ export const data = {
       coverImage: "cover7.jpg",
     },
     {
+      id: 7,
       username: "user8",
       fullName: "User Eight",
       email: "user8@example.com",
@@ -73,6 +81,7 @@ export const data = {
       coverImage: "cover8.jpg",
     },
     {
+      id: 8,
       username: "user9",
       fullName: "User Nine",
       email: "user9@example.com",
@@ -82,6 +91,7 @@ export const data = {
       coverImage: "cover9.jpg",
     },
     {
+      id: 9,
       username: "user10",
       fullName: "User Ten",
       email: "user10@example.com",
