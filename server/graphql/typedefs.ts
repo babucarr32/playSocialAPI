@@ -18,6 +18,7 @@ input CreateUser{
 
 
 type Post{
+    author: String!
     title: String!
     description:String!
     images: [String]
@@ -27,6 +28,7 @@ type Post{
 }
 
 input CreatePost{
+    author: String
     title: String!
     description:String!
     images: [String]

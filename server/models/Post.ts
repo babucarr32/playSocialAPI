@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document, Model, mongo } from "mongoose";
 
 export interface PostType extends Document {
+  author: string;
   title: string;
   description: string;
   images: [string];
@@ -23,6 +24,7 @@ interface Comment {
 export interface PostModel extends Model<PostType> {}
 
 const postSchema = new Schema({
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   title: { type: String },
   description: { type: String },
   images: { type: [], default: [] },

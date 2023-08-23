@@ -17,6 +17,7 @@ export interface CreateUser {
 
 export interface CreatePost {
   postInfo: {
+    author: string;
     title: string;
     description: string;
     images: [string];
