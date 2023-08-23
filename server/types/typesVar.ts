@@ -31,3 +31,11 @@ export interface FollowType {
     action: string;
   };
 }
+
+export interface LikeOrDislikeType {
+  info: {
+    action: "like" | "dislike" | "undoLike" | "undoDislike";
+    post_id: string;
+    user_id: string;
+  };
+}

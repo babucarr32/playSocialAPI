@@ -23,6 +23,7 @@ export const createPost = {
     const createPost = new Post({ ...postInfo });
     const result = await createPost.save();
     return {
+      id: result._id,
       author: result.author,
       title: result.title,
       description: result.description,

@@ -18,6 +18,7 @@ input CreateUser{
 
 
 type Post{
+    id: String
     author: String!
     title: String!
     description:String!
@@ -56,6 +57,12 @@ input FollowUser{
     action: String
 }
 
+input LikeOrDislikePost{
+    user_id: ID!
+    post_id: ID!
+    action: String!
+}
+
 type Query{
     user(ID: ID!): User
     users: [User]
@@ -67,5 +74,6 @@ type Mutation{
     createUser(credentials: CreateUser): User
     createPost(postInfo: CreatePost): Post
     followUser(info: FollowUser): Boolean
+    likeOrDislikePost(info: LikeOrDislikePost): String
 }
 `;
