@@ -4,6 +4,23 @@ import { FollowType, LikeOrDislikeType } from "../types/typesVar";
 import User from "../models/User";
 import Post from "../models/Post";
 
+const likeOrDislikeVerify = async (
+  field: string,
+  id: string,
+  userId: string,
+  fullName: string
+) => {
+  return await Post.findOne({
+    _id: id,
+    [field]: {
+      $elemMatch: {
+        user_id: userId,
+        fullName: fullName,
+      },
+    },
+  });
+};
+
 export const resolvers = {
   Query: {
     ...getUser,
@@ -52,6 +69,15 @@ export const resolvers = {
       console.log("action is ", info.fullName);
       try {
         if (info.action == "like") {
+          let result = await likeOrDislikeVerify(
+            "likes",
+            info.post_id,
+            info.user_id,
+            info.fullName
+          );
+          if (result) {
+            return `Forbidden...`;
+          }
           await Post.updateOne(
             { _id: info.post_id },
             {
@@ -71,6 +97,7 @@ export const resolvers = {
             }
           );
         }
+
         return info.action;
       } catch (error) {
         return "Ooh ohh! something went wrong";
