@@ -16,10 +16,17 @@ export const resolvers = {
 
     async followUser(_: any, { info }: FollowType) {
       try {
-        await User.updateOne(
-          { _id: info.followed_id },
-          { $addToSet: { followers: { user_id: info.follower_id } } }
-        );
+        if (info.action == "follow") {
+          await User.updateOne(
+            { _id: info.followed_id },
+            { $addToSet: { followers: { user_id: info.follower_id } } }
+          );
+        } else {
+          await User.updateOne(
+            { _id: info.followed_id },
+            { $pull: { followers: { user_id: info.follower_id } } }
+          );
+        }
         return true;
       } catch (error) {
         return false;

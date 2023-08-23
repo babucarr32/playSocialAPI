@@ -51,6 +51,7 @@ type Like{
 input FollowUser{
     followed_id: ID
     follower_id: ID
+    action: String
 }
 
 type Query{
