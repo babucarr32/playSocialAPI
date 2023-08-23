@@ -9,6 +9,13 @@ type User{
     coverImage: String
 }
 
+input CreateUser{
+    username: String!
+    fullName: String!
+    email: String!
+    password: String!
+}
+
 type Post{
     title: String!
     description:String!
@@ -39,5 +46,9 @@ type Query{
     users: [User]
     post(ID: ID!): Post
     posts: [Post]
+}
+
+type Mutation{
+    createUser(credentials: CreateUser): User
 }
 `;
