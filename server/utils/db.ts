@@ -103,6 +103,7 @@ export const data = {
   ],
   posts: [
     {
+      id: 0,
       title: "Exploring the Wilderness",
       description:
         "Hiking through lush forests and discovering hidden waterfalls.",
@@ -114,12 +115,13 @@ export const data = {
           comment: "This looks like an amazing adventure!",
           user_id: "user2",
           post_id: "post1",
-          likes: 5,
-          dislikes: 0,
+          likes: [{ user_id: "user1" }, { user_id: "user3" }],
+          dislikes: [],
         },
       ],
     },
     {
+      id: 1,
       title: "Sunrise at the Beach",
       description: "Starting the day with a serene sunrise by the ocean.",
       images: ["beach_sunrise_image1.jpg"],
@@ -128,6 +130,7 @@ export const data = {
       comments: [],
     },
     {
+      id: 2,
       title: "City Lights",
       description: "Admiring the vibrant city lights from a rooftop.",
       images: ["city_lights_image1.jpg"],
@@ -138,12 +141,13 @@ export const data = {
           comment: "The city never looked better!",
           user_id: "user3",
           post_id: "post3",
-          likes: 2,
-          dislikes: 0,
+          likes: [],
+          dislikes: [{ user_id: "user1" }, { user_id: "user3" }],
         },
       ],
     },
     {
+      id: 3,
       title: "Delicious Desserts",
       description: "Indulging in a variety of mouthwatering desserts.",
       images: ["desserts_image1.jpg", "desserts_image2.jpg"],
@@ -152,6 +156,7 @@ export const data = {
       comments: [],
     },
     {
+      id: 4,
       title: "Mountain Retreat",
       description: "Escaping to the mountains for a weekend of tranquility.",
       images: ["mountain_retreat_image1.jpg"],
@@ -160,6 +165,7 @@ export const data = {
       comments: [],
     },
     {
+      id: 5,
       title: "Cultural Festival",
       description:
         "Immersing in the vibrant colors and traditions of a local festival.",
@@ -171,12 +177,13 @@ export const data = {
           comment: "The cultural diversity is so beautiful!",
           user_id: "user9",
           post_id: "post6",
-          likes: 1,
-          dislikes: 0,
+          likes: [],
+          dislikes: [{ user_id: "user1" }],
         },
       ],
     },
     {
+      id: 6,
       title: "Adventures in the Snow",
       description:
         "Embracing the winter wonderland with snowboarding and skiing.",
@@ -188,12 +195,13 @@ export const data = {
           comment: "I wish I was there right now!",
           user_id: "user1",
           post_id: "post7",
-          likes: 3,
-          dislikes: 0,
+          likes: [],
+          dislikes: [{ user_id: "user3" }, { user_id: "user2" }],
         },
       ],
     },
     {
+      id: 7,
       title: "Serenity by the Lake",
       description: "Finding peace and serenity by a calm lake.",
       images: ["lake_serenity_image1.jpg"],
@@ -202,6 +210,7 @@ export const data = {
       comments: [],
     },
     {
+      id: 8,
       title: "Artistic Expressions",
       description: "Exploring an art gallery filled with captivating artworks.",
       images: ["art_gallery_image1.jpg"],
@@ -210,6 +219,7 @@ export const data = {
       comments: [],
     },
     {
+      id: 9,
       title: "Summer Picnic",
       description:
         "Gathering with friends for a delightful summer picnic in the park.",
@@ -221,8 +231,8 @@ export const data = {
           comment: "The food looks so delicious!",
           user_id: "user8",
           post_id: "post10",
-          likes: 2,
-          dislikes: 0,
+          likes: [],
+          dislikes: [{ user_id: "user5" }, { user_id: "user7" }],
         },
       ],
     },

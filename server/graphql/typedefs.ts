@@ -32,13 +32,12 @@ type Comment{
 
 type Like{
     user_id: ID!
-    post_id: ID!
 }
 
 type Query{
     user(ID: ID!): User
     users: [User]
-    post: Post
+    post(ID: ID!): Post
     posts: [Post]
 }
 `;
