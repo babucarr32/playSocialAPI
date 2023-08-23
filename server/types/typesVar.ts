@@ -22,3 +22,10 @@ export interface CreatePost {
     images: [string];
   };
 }
+
+export interface FollowType {
+  info: {
+    followed_id: string;
+    follower_id: string;
+  };
+}

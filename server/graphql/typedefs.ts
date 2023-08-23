@@ -48,6 +48,11 @@ type Like{
     user_id: ID!
 }
 
+input FollowUser{
+    followed_id: ID
+    follower_id: ID
+}
+
 type Query{
     user(ID: ID!): User
     users: [User]
@@ -58,5 +63,6 @@ type Query{
 type Mutation{
     createUser(credentials: CreateUser): User
     createPost(postInfo: CreatePost): Post
+    followUser(info: FollowUser): Boolean
 }
 `;
