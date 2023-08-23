@@ -2,7 +2,9 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 import bcrypt from "bcryptjs";
 
 interface Follow {
-  user_id: String;
+  followed_id: String;
+  follower_id: String;
+  fullName: String;
 }
 
 export interface UserType extends Document {
@@ -24,7 +26,14 @@ const userSchema = new Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  followers: { type: [] },
+  followers: {
+    type: [
+      {
+        follower_id: { type: mongoose.Schema.ObjectId, ref: "users" },
+        fullName: { type: String },
+      },
+    ],
+  },
   profileImage: { type: String, default: "" },
   coverImage: { type: String, default: "" },
 });

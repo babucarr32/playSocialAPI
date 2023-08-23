@@ -20,12 +20,26 @@ export const resolvers = {
         if (info.action == "follow") {
           await User.updateOne(
             { _id: info.followed_id },
-            { $addToSet: { followers: { user_id: info.follower_id } } }
+            {
+              $addToSet: {
+                followers: {
+                  follower_id: info.follower_id,
+                  fullName: info.fullName,
+                },
+              },
+            }
           );
         } else {
           await User.updateOne(
             { _id: info.followed_id },
-            { $pull: { followers: { user_id: info.follower_id } } }
+            {
+              $pull: {
+                followers: {
+                  follower_id: info.follower_id,
+                  fullName: info.fullName,
+                },
+              },
+            }
           );
         }
         return true;

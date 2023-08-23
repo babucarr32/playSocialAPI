@@ -36,7 +36,8 @@ input CreatePost{
 }
 
 type Follow{
-    user_id: String!
+    follower_id: String
+    fullName: String
 }
 
 type Comment{
@@ -55,6 +56,7 @@ type Like{
 input FollowUser{
     followed_id: ID
     follower_id: ID
+    fullName: String
     action: String
 }
 

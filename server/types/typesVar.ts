@@ -26,6 +26,7 @@ export interface CreatePost {
 
 export interface FollowType {
   info: {
+    fullName: string;
     followed_id: string;
     follower_id: string;
     action: string;
