@@ -37,12 +37,11 @@ export const resolvers = {
     },
 
     async post(_: any, { ID }: PostType) {
-      const res = data.posts.find((post) => post.id == ID);
-      return res;
+      return await Post.findById(ID);
     },
 
     async posts() {
-      return data.posts;
+      return await Post.find();
     },
   },
   Mutation: {
@@ -63,7 +62,6 @@ export const resolvers = {
     async createPost(_: any, { postInfo }: CreatePost) {
       const createPost = new Post({ ...postInfo });
       const result = await createPost.save();
-
       return {
         title: result.title,
         description: result.description,
