@@ -20,9 +20,9 @@ export interface UserType extends Document {
 export interface UserModel extends Model<UserType> {}
 
 const userSchema = new Schema({
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
   fullName: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   followers: { type: [] },
   profileImage: { type: String, default: "" },

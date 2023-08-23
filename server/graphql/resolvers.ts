@@ -20,12 +20,11 @@ interface CreateUser {
 export const resolvers = {
   Query: {
     async user(_: any, { ID }: UserType) {
-      const res = data.users.find((user) => user.id == ID);
-      return res;
+      return await User.findById(ID);
     },
 
     async users() {
-      return data.users;
+      return await User.find();
     },
 
     async post(_: any, { ID }: PostType) {
@@ -41,7 +40,6 @@ export const resolvers = {
     async createUser(_: any, { credentials }: CreateUser) {
       const createUser = new User({ ...credentials });
       const result = await createUser.save();
-      console.log(result);
       return {
         username: result.username,
         fullName: result.fullName,
