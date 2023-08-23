@@ -11,6 +11,7 @@ export interface PostType extends Document {
 }
 interface Like {
   user_id: string;
+  fullName: string;
 }
 
 interface Comment {
@@ -29,11 +30,12 @@ const postSchema = new Schema({
   description: { type: String },
   images: { type: [], default: [] },
   likes: {
-    type: [{ user_id: { type: String } }],
+    type: [{ user_id: { type: String }, fullName: { type: String } }],
     default: [],
   },
   dislikes: {
-    type: [{ user_id: { type: String } }],
+    type: [{ user_id: { type: String }, fullName: { type: String } }],
+
     default: [],
   },
   comments: {
@@ -43,11 +45,11 @@ const postSchema = new Schema({
         user_id: String,
         post_id: String,
         likes: {
-          type: [{ user_id: { type: String } }],
+          type: [{ user_id: { type: String }, fullName: { type: String } }],
           default: [],
         },
         dislikes: {
-          type: [{ user_id: { type: String } }],
+          type: [{ user_id: { type: String }, fullName: { type: String } }],
           default: [],
         },
       },

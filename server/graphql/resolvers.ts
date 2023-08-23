@@ -35,12 +35,16 @@ export const resolvers = {
     },
 
     async likeOrDislikePost(_: any, { info }: LikeOrDislikeType) {
-      console.log("action is ", info.action);
+      console.log("action is ", info.fullName);
       try {
         if (info.action == "like") {
           await Post.updateOne(
             { _id: info.post_id },
-            { $addToSet: { likes: { user_id: info.user_id } } }
+            {
+              $addToSet: {
+                likes: { user_id: info.user_id, fullName: info.fullName },
+              },
+            }
           );
         }
         return info.action;

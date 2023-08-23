@@ -49,6 +49,7 @@ type Comment{
 
 type Like{
     user_id: ID!
+    fullName: String
 }
 
 input FollowUser{
@@ -59,6 +60,7 @@ input FollowUser{
 
 input LikeOrDislikePost{
     user_id: ID!
+    fullName: String!
     post_id: ID!
     action: String!
 }
