@@ -1,5 +1,6 @@
 import { data } from "../utils/db";
 import User from "../models/User";
+import Post from "../models/Post";
 
 interface UserType {
   ID: any;
@@ -14,6 +15,14 @@ interface CreateUser {
     fullName: String;
     email: String;
     password: String;
+  };
+}
+
+interface CreatePost {
+  postInfo: {
+    title: string;
+    description: string;
+    images: [string];
   };
 }
 
@@ -48,6 +57,20 @@ export const resolvers = {
         followers: result.followers,
         profileImage: result.profileImage,
         coverImage: result.coverImage,
+      };
+    },
+
+    async createPost(_: any, { postInfo }: CreatePost) {
+      const createPost = new Post({ ...postInfo });
+      const result = await createPost.save();
+
+      return {
+        title: result.title,
+        description: result.description,
+        images: result.images,
+        likes: result.likes,
+        dislikes: result.dislikes,
+        comments: result.comments,
       };
     },
   },

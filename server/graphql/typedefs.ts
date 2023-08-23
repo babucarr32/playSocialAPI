@@ -16,6 +16,7 @@ input CreateUser{
     password: String!
 }
 
+
 type Post{
     title: String!
     description:String!
@@ -23,6 +24,12 @@ type Post{
     likes: [Like]
     dislikes: [Like]
     comments: [Comment]
+}
+
+input CreatePost{
+    title: String!
+    description:String!
+    images: [String]
 }
 
 type Follow{
@@ -50,5 +57,6 @@ type Query{
 
 type Mutation{
     createUser(credentials: CreateUser): User
+    createPost(postInfo: CreatePost): Post
 }
 `;
