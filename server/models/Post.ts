@@ -32,6 +32,7 @@ const postSchema = new Schema({
   likes: {
     type: [{ user_id: { type: String }, fullName: { type: String } }],
     default: [],
+    unique: true,
   },
   dislikes: {
     type: [{ user_id: { type: String }, fullName: { type: String } }],

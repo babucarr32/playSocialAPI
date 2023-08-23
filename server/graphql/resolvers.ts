@@ -61,6 +61,16 @@ export const resolvers = {
             }
           );
         }
+        if (info.action == "dislike") {
+          await Post.updateOne(
+            { _id: info.post_id },
+            {
+              $pull: {
+                likes: { user_id: info.user_id, fullName: info.fullName },
+              },
+            }
+          );
+        }
         return info.action;
       } catch (error) {
         return "Ooh ohh! something went wrong";
