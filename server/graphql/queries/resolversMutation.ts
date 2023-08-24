@@ -38,6 +38,46 @@ const likeOrDislikeVerify = async (
   if (result) throw new Error("Forbidden action...");
 };
 
+const handleLikeOrDislike = async (
+  { info }: LikeOrDislikeType,
+  field: "likes" | "dislikes"
+) => {
+  await Post.updateOne(
+    { _id: info.post_id },
+    {
+      $addToSet: {
+        [field]: { user_id: info.user_id, fullName: info.fullName },
+      },
+    }
+  );
+};
+
+const handleUndoLikeOrDislike = async (
+  { info }: LikeOrDislikeType,
+  field: "likes" | "dislikes"
+) => {
+  await Post.updateOne(
+    { _id: info.post_id },
+    {
+      $pull: {
+        [field]: { user_id: info.user_id, fullName: info.fullName },
+      },
+    }
+  );
+};
+
+const handleIsUserLikedOrDisliked = async (
+  { info }: LikeOrDislikeType,
+  action: string
+) => {
+  return await isUserLikedOrDisliked(
+    action,
+    info.post_id,
+    info.user_id,
+    info.fullName
+  );
+};
+
 export const createUser = {
   async createUser(_: any, { credentials }: CreateUser, context: any) {
     isUserAuth(context);
@@ -112,36 +152,6 @@ export const followUser = {
 export const likeOrDislikePost = {
   async likeOrDislikePost(_: any, { info }: LikeOrDislikeType, context: any) {
     isUserAuth(context);
-    const handleLikeOrDislike = async (field: "likes" | "dislikes") => {
-      await Post.updateOne(
-        { _id: info.post_id },
-        {
-          $addToSet: {
-            [field]: { user_id: info.user_id, fullName: info.fullName },
-          },
-        }
-      );
-    };
-
-    const handleUndoLikeOrDislike = async (field: "likes" | "dislikes") => {
-      await Post.updateOne(
-        { _id: info.post_id },
-        {
-          $pull: {
-            [field]: { user_id: info.user_id, fullName: info.fullName },
-          },
-        }
-      );
-    };
-
-    const handleIsUserLikedOrDisliked = async (action: string) => {
-      return await isUserLikedOrDisliked(
-        action,
-        info.post_id,
-        info.user_id,
-        info.fullName
-      );
-    };
 
     try {
       await likeOrDislikeVerify(
@@ -152,23 +162,23 @@ export const likeOrDislikePost = {
       );
 
       if (info.action == "like") {
-        const result = await handleIsUserLikedOrDisliked("dislikes");
-        if (result) await handleUndoLikeOrDislike("dislikes");
-        await handleLikeOrDislike("likes");
+        const result = await handleIsUserLikedOrDisliked({ info }, "dislikes");
+        if (result) await handleUndoLikeOrDislike({ info }, "dislikes");
+        await handleLikeOrDislike({ info }, "likes");
       }
 
       if (info.action == "dislike") {
-        const result = await handleIsUserLikedOrDisliked("likes");
-        if (result) await handleUndoLikeOrDislike("likes");
-        await handleLikeOrDislike("dislikes");
+        const result = await handleIsUserLikedOrDisliked({ info }, "likes");
+        if (result) await handleUndoLikeOrDislike({ info }, "likes");
+        await handleLikeOrDislike({ info }, "dislikes");
       }
 
       if (info.action == "undoLike") {
-        await handleUndoLikeOrDislike("likes");
+        await handleUndoLikeOrDislike({ info }, "likes");
       }
 
       if (info.action == "undoDislike") {
-        await handleUndoLikeOrDislike("dislikes");
+        await handleUndoLikeOrDislike({ info }, "dislikes");
       }
       return `${info.action} successful`;
     } catch (error: any) {
