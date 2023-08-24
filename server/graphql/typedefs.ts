@@ -74,6 +74,13 @@ input CommentPost{
     fullName: String!
 }
 
+input UpdateCommentPost{
+    comment: String!
+    user_id: String!
+    post_id: String!
+    comment_id: String!
+}
+
 type Query{
     user(ID: ID!): User
     users: [User]
@@ -87,6 +94,6 @@ type Mutation{
     followUser(info: FollowUser): Boolean
     likeOrDislikePost(info: LikeOrDislikePost): String
     commentPost(info: CommentPost): String
-    updateCommentPost(info: CommentPost): String
+    updateCommentPost(info: UpdateCommentPost): String
 }
 `;

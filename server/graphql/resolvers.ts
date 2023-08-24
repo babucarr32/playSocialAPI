@@ -22,19 +22,6 @@ export const resolvers = {
     ...likeOrDislikePost,
     async commentPost(_: any, { info }: CommentPostType) {
       try {
-        const result = await Post.findOne({
-          _id: info.post_id,
-          comments: {
-            $elemMatch: {
-              comment: info.comment,
-              user_id: info.user_id,
-              fullName: info.fullName,
-            },
-          },
-        });
-
-        if (result) return "Forbidden...";
-
         await Post.updateOne(
           { _id: info.post_id },
           {
@@ -54,21 +41,23 @@ export const resolvers = {
     },
 
     async updateCommentPost(_: any, { info }: CommentPostType) {
-      console.log(info);
-
-      const result = await Post.updateOne(
-        {
-          _id: info.post_id,
-          "comments.user_id": info.user_id,
-        },
-        {
-          $set: {
-            "comments.$.comment": info.comment,
+      try {
+        const result = await Post.updateOne(
+          {
+            _id: info.post_id,
+            "comments._id": info.comment_id,
+            "comments.user_id": info.user_id,
           },
-        }
-      );
-
-      console.log(result);
+          {
+            $set: {
+              "comments.$.comment": info.comment,
+            },
+          }
+        );
+        return "Updated comment successfully";
+      } catch (error) {
+        return "Bad request";
+      }
     },
   },
 };
