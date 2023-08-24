@@ -38,11 +38,12 @@ export const resolvers = {
           },
           { new: true }
         );
-        console.log(result);
-
         return result;
-      } catch (error) {
-        return "ohh ohh, something went wrong.";
+      } catch (error: any) {
+        if (error.codeName) {
+          throw new Error("Username already exist");
+        }
+        throw new Error(error.message);
       }
     },
   },
