@@ -1,0 +1,7 @@
+cd into the server folder.
+create a .env file, with the following values.
+MONGODB_URI
+RefreshToken
+AccessToken
+run npm install 
+then run npm start
