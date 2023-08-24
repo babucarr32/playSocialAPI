@@ -54,6 +54,7 @@ run `npm install`
 
 then run `npm start`
 
-## Read the docs from the Apollo Server running at _http://localhost:4000/_ for api consumption.
+### Read the docs from the Apollo Server running at _http://localhost:4000/_ for api consumption.
 
+Feel free to contribute to the project.
 Enjoy!
