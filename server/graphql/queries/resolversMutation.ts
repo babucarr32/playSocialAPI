@@ -1,6 +1,8 @@
 import {
+  CommentPostType,
   CreatePost,
   CreateUser,
+  DeleteCommentType,
   FollowType,
   LikeOrDislikeType,
 } from "../../types/typesVar";
@@ -166,6 +168,68 @@ export const likeOrDislikePost = {
       return `${info.action} successful`;
     } catch (error: any) {
       return error.message;
+    }
+  },
+};
+
+export const commentPost = {
+  async commentPost(_: any, { info }: CommentPostType) {
+    try {
+      await Post.updateOne(
+        { _id: info.post_id },
+        {
+          $addToSet: {
+            comments: {
+              comment: info.comment,
+              user_id: info.user_id,
+              fullName: info.fullName,
+            },
+          },
+        }
+      );
+      return "Comment successful";
+    } catch (error) {
+      return "Ooh ohh! something went wrong";
+    }
+  },
+};
+
+export const updateCommentPost = {
+  async updateCommentPost(_: any, { info }: CommentPostType) {
+    try {
+      await Post.updateOne(
+        {
+          _id: info.post_id,
+          "comments._id": info.comment_id,
+          "comments.user_id": info.user_id,
+        },
+        {
+          $set: {
+            "comments.$.comment": info.comment,
+          },
+        }
+      );
+      return "Updated comment successfully";
+    } catch (error) {
+      return "Bad request";
+    }
+  },
+};
+
+export const deleteComment = {
+  async deleteComment(_: any, { info }: DeleteCommentType) {
+    try {
+      await Post.updateOne(
+        { _id: info.post_id },
+        {
+          $pull: {
+            comments: { _id: info.comment_id, user_id: info.user_id },
+          },
+        }
+      );
+      return true;
+    } catch (error) {
+      return false;
     }
   },
 };

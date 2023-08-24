@@ -67,6 +67,14 @@ input LikeOrDislikePost{
     action: String!
 }
 
+input LikeOrDislikeComment{
+    user_id: ID!
+    fullName: String!
+    post_id: ID!
+    comment_id: ID!
+    action: String!
+}
+
 input CommentPost{
     comment: String!
     user_id: String!
@@ -102,5 +110,6 @@ type Mutation{
     commentPost(info: CommentPost): String
     updateCommentPost(info: UpdateCommentPost): String
     deleteComment(info: DeleteComment): Boolean
+    likeOrDislikeComment(info: LikeOrDislikeComment): String
 }
 `;
