@@ -41,3 +41,12 @@ export interface LikeOrDislikeType {
     fullName: string;
   };
 }
+
+export interface CommentPostType {
+  info: {
+    user_id: string;
+    post_id: string;
+    comment: string;
+    fullName: string;
+  };
+}

@@ -5,8 +5,7 @@ import {
   followUser,
   likeOrDislikePost,
 } from "./queries/resolversMutation";
-import { FollowType, LikeOrDislikeType } from "../types/typesVar";
-import User from "../models/User";
+import { CommentPostType } from "../types/typesVar";
 import Post from "../models/Post";
 
 export const resolvers = {
@@ -21,5 +20,26 @@ export const resolvers = {
     ...createPost,
     ...followUser,
     ...likeOrDislikePost,
+    async commentPost(_: any, { info }: CommentPostType) {
+      console.log(info);
+
+      try {
+        await Post.updateOne(
+          { _id: info.post_id },
+          {
+            $addToSet: {
+              comments: {
+                comment: info.comment,
+                user_id: info.user_id,
+                fullName: info.fullName,
+              },
+            },
+          }
+        );
+        return "Comment successful";
+      } catch (error) {
+        return "Ooh ohh! something went wrong";
+      }
+    },
   },
 };

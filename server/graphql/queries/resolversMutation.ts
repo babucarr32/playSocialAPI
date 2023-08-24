@@ -94,7 +94,6 @@ export const followUser = {
 
 export const likeOrDislikePost = {
   async likeOrDislikePost(_: any, { info }: LikeOrDislikeType) {
-    console.log("action is ", info.fullName);
     try {
       if (info.action == "like") {
         let result = await likeOrDislikeVerify(

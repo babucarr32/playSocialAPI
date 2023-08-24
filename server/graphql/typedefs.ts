@@ -43,7 +43,7 @@ type Follow{
 type Comment{
     comment: String!
     user_id: ID!
-    post_id: ID!
+    fullName: ID!
     likes: [Like]
     dislikes: [Like]
 }
@@ -67,6 +67,13 @@ input LikeOrDislikePost{
     action: String!
 }
 
+input CommentPost{
+    comment: String!
+    user_id: String!
+    post_id: String!
+    fullName: String!
+}
+
 type Query{
     user(ID: ID!): User
     users: [User]
@@ -79,5 +86,6 @@ type Mutation{
     createPost(postInfo: CreatePost): Post
     followUser(info: FollowUser): Boolean
     likeOrDislikePost(info: LikeOrDislikePost): String
+    commentPost(info: CommentPost): String
 }
 `;

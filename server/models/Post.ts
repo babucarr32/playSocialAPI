@@ -17,7 +17,7 @@ interface Like {
 interface Comment {
   comment: string;
   user_id: string;
-  post_id: string;
+  fullName: string;
   likes: [Like];
   dislikes: [Like];
 }
@@ -32,19 +32,17 @@ const postSchema = new Schema({
   likes: {
     type: [{ user_id: { type: String }, fullName: { type: String } }],
     default: [],
-    unique: true,
   },
   dislikes: {
     type: [{ user_id: { type: String }, fullName: { type: String } }],
-
     default: [],
   },
   comments: {
     type: [
       {
-        comment: String,
-        user_id: String,
-        post_id: String,
+        comment: { type: String },
+        user_id: { type: String },
+        fullName: { type: String },
         likes: {
           type: [{ user_id: { type: String }, fullName: { type: String } }],
           default: [],
