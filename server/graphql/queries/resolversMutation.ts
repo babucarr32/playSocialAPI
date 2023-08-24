@@ -7,7 +7,7 @@ import {
 import User from "../../models/User";
 import Post from "../../models/Post";
 
-const likeOrDislikeVerify = async (
+const isUserLikedOrDisliked = async (
   field: string,
   id: string,
   userId: string,
@@ -22,7 +22,16 @@ const likeOrDislikeVerify = async (
       },
     },
   });
+  return result;
+};
 
+const likeOrDislikeVerify = async (
+  field: string,
+  id: string,
+  userId: string,
+  fullName: string
+) => {
+  let result = await isUserLikedOrDisliked(field, id, userId, fullName);
   if (result) throw new Error("Forbidden action...");
 };
 
@@ -96,6 +105,37 @@ export const followUser = {
 
 export const likeOrDislikePost = {
   async likeOrDislikePost(_: any, { info }: LikeOrDislikeType) {
+    const handleLikeOrDislike = async (field: "likes" | "dislikes") => {
+      await Post.updateOne(
+        { _id: info.post_id },
+        {
+          $addToSet: {
+            [field]: { user_id: info.user_id, fullName: info.fullName },
+          },
+        }
+      );
+    };
+
+    const handleUndoLikeOrDislike = async (field: "likes" | "dislikes") => {
+      await Post.updateOne(
+        { _id: info.post_id },
+        {
+          $pull: {
+            [field]: { user_id: info.user_id, fullName: info.fullName },
+          },
+        }
+      );
+    };
+
+    const handleIsUserLikedOrDisliked = async (action: string) => {
+      return await isUserLikedOrDisliked(
+        action,
+        info.post_id,
+        info.user_id,
+        info.fullName
+      );
+    };
+
     try {
       await likeOrDislikeVerify(
         info.action + "s",
@@ -103,47 +143,27 @@ export const likeOrDislikePost = {
         info.user_id,
         info.fullName
       );
+
       if (info.action == "like") {
-        await Post.updateOne(
-          { _id: info.post_id },
-          {
-            $addToSet: {
-              likes: { user_id: info.user_id, fullName: info.fullName },
-            },
-          }
-        );
+        const result = await handleIsUserLikedOrDisliked("dislikes");
+        if (result) await handleUndoLikeOrDislike("dislikes");
+
+        await handleLikeOrDislike("likes");
       }
+
       if (info.action == "dislike") {
-        await Post.updateOne(
-          { _id: info.post_id },
-          {
-            $addToSet: {
-              dislikes: { user_id: info.user_id, fullName: info.fullName },
-            },
-          }
-        );
+        const result = await handleIsUserLikedOrDisliked("likes");
+        if (result) await handleUndoLikeOrDislike("likes");
+
+        await handleLikeOrDislike("dislikes");
       }
 
       if (info.action == "undoLike") {
-        await Post.updateOne(
-          { _id: info.post_id },
-          {
-            $pull: {
-              likes: { user_id: info.user_id, fullName: info.fullName },
-            },
-          }
-        );
+        await handleUndoLikeOrDislike("likes");
       }
 
       if (info.action == "undoDislike") {
-        await Post.updateOne(
-          { _id: info.post_id },
-          {
-            $pull: {
-              dislikes: { user_id: info.user_id, fullName: info.fullName },
-            },
-          }
-        );
+        await handleUndoLikeOrDislike("dislikes");
       }
       return `${info.action} successful`;
     } catch (error: any) {
