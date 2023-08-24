@@ -44,14 +44,16 @@ The documentation is designed to get you up and running in no time.
 
 ### 2. create a .env file, with the following values.
 
-### _MONGODB_URI_
+_MONGODB_URI_
 
-### _RefreshToken_
+_RefreshToken_
 
-### _AccessToken_
+_AccessToken_
 
-### run _npm install_
+run `npm install`
 
-### then _run npm start_
+then run `npm start`
 
 ## Read the docs from the Apollo Server running at _http://localhost:4000/_ for api consumption.
+
+Enjoy!
