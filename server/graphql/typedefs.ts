@@ -1,9 +1,9 @@
 export const typeDefs = `#graphql
 type User{
+    id: ID!
     username: String!
     fullName: String!
     email: String!
-    password: String!
     followers: [Follow]
     profileImage: String
     coverImage: String
@@ -16,6 +16,13 @@ input CreateUser{
     password: String!
 }
 
+input EditAccount{
+    id: ID
+    username: String
+    fullName: String
+    profileImage: String
+    coverImage: String
+}
 
 type Post{
     id: String
@@ -104,6 +111,7 @@ type Query{
 
 type Mutation{
     createUser(credentials: CreateUser): User
+    editAccount(credentials: EditAccount): User
     createPost(postInfo: CreatePost): Post
     followUser(info: FollowUser): Boolean
     likeOrDislikePost(info: LikeOrDislikePost): String

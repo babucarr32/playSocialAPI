@@ -59,3 +59,13 @@ export interface DeleteCommentType {
     comment_id: string;
   };
 }
+
+export interface EditAccount {
+  credentials: {
+    id: string;
+    username: string;
+    fullName: string;
+    profileImage: string;
+    coverImage: string;
+  };
+}
