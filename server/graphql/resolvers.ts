@@ -8,11 +8,12 @@ import {
   likeOrDislikePost,
   updateCommentPost,
 } from "./queries/resolversMutation";
-import { EditAccount, Login } from "../types/typesVar";
+import { EditAccount, EditPostType, Login } from "../types/typesVar";
 import User from "../models/User";
 import bcrypt from "bcryptjs";
 import { handleGenerateToken } from "../actions/generateToken";
 import { isUserAuth } from "../actions/checkAuth";
+import Post from "../models/Post";
 
 export const resolvers = {
   Query: {
@@ -63,6 +64,23 @@ export const resolvers = {
         }
       }
       throw new Error("Username or password incorrect");
+    },
+    async editPost(_: any, { postInfo }: EditPostType, context: any) {
+      isUserAuth(context);
+      try {
+        const result = await Post.findOneAndUpdate(
+          { _id: postInfo.post_id },
+          {
+            title: postInfo.title,
+            description: postInfo.description,
+            images: postInfo.images,
+          },
+          { new: true }
+        );
+        return result;
+      } catch (error: any) {
+        throw new Error(error.message);
+      }
     },
   },
 };

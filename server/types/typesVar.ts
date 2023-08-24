@@ -76,3 +76,12 @@ export interface EditAccount {
     coverImage: string;
   };
 }
+
+export interface EditPostType {
+  postInfo: {
+    post_id: string;
+    title: string;
+    description: string;
+    images: [string];
+  };
+}

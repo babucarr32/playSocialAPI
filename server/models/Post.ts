@@ -43,14 +43,6 @@ const postSchema = new Schema({
         comment: { type: String },
         user_id: { type: String },
         fullName: { type: String },
-        likes: {
-          type: [{ user_id: { type: String }, fullName: { type: String } }],
-          default: [],
-        },
-        dislikes: {
-          type: [{ user_id: { type: String }, fullName: { type: String } }],
-          default: [],
-        },
       },
     ],
     default: [],
