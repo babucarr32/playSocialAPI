@@ -147,14 +147,12 @@ export const likeOrDislikePost = {
       if (info.action == "like") {
         const result = await handleIsUserLikedOrDisliked("dislikes");
         if (result) await handleUndoLikeOrDislike("dislikes");
-
         await handleLikeOrDislike("likes");
       }
 
       if (info.action == "dislike") {
         const result = await handleIsUserLikedOrDisliked("likes");
         if (result) await handleUndoLikeOrDislike("likes");
-
         await handleLikeOrDislike("dislikes");
       }
 

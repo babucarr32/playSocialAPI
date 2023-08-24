@@ -5,7 +5,7 @@ import {
   followUser,
   likeOrDislikePost,
 } from "./queries/resolversMutation";
-import { CommentPostType } from "../types/typesVar";
+import { CommentPostType, DeleteCommentType } from "../types/typesVar";
 import Post from "../models/Post";
 
 export const resolvers = {
@@ -57,6 +57,22 @@ export const resolvers = {
         return "Updated comment successfully";
       } catch (error) {
         return "Bad request";
+      }
+    },
+
+    async deleteComment(_: any, { info }: DeleteCommentType) {
+      try {
+        await Post.updateOne(
+          { _id: info.post_id },
+          {
+            $pull: {
+              comments: { _id: info.comment_id, user_id: info.user_id },
+            },
+          }
+        );
+        return true;
+      } catch (error) {
+        return false;
       }
     },
   },

@@ -81,6 +81,12 @@ input UpdateCommentPost{
     comment_id: String!
 }
 
+input DeleteComment{
+    user_id: String!
+    post_id: String!
+    comment_id: String! 
+}
+
 type Query{
     user(ID: ID!): User
     users: [User]
@@ -95,5 +101,6 @@ type Mutation{
     likeOrDislikePost(info: LikeOrDislikePost): String
     commentPost(info: CommentPost): String
     updateCommentPost(info: UpdateCommentPost): String
+    deleteComment(info: DeleteComment): Boolean
 }
 `;

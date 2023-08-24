@@ -51,3 +51,11 @@ export interface CommentPostType {
     fullName: string;
   };
 }
+
+export interface DeleteCommentType {
+  info: {
+    user_id: string;
+    post_id: string;
+    comment_id: string;
+  };
+}
