@@ -38,6 +38,8 @@ Let your creativity shine. Design playful applications, interactive experiments,
 
 The documentation is designed to get you up and running in no time.
 
+## I used _MongoDB Atlas_ for my database.
+
 ## Usage:
 
 ### 1. cd into the server folder.
