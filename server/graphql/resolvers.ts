@@ -21,9 +21,20 @@ export const resolvers = {
     ...followUser,
     ...likeOrDislikePost,
     async commentPost(_: any, { info }: CommentPostType) {
-      console.log(info);
-
       try {
+        const result = await Post.findOne({
+          _id: info.post_id,
+          comments: {
+            $elemMatch: {
+              comment: info.comment,
+              user_id: info.user_id,
+              fullName: info.fullName,
+            },
+          },
+        });
+
+        if (result) return "Forbidden...";
+
         await Post.updateOne(
           { _id: info.post_id },
           {
