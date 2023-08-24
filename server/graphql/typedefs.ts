@@ -9,6 +9,16 @@ type User{
     coverImage: String
 }
 
+type LoggedInUser{
+    id: ID!
+    username: String
+    fullName: String
+    email: String
+    profileImage: String
+    coverImage: String
+    accessToken: String
+}
+
 input CreateUser{
     username: String!
     fullName: String!
@@ -58,6 +68,11 @@ type Comment{
 type Like{
     user_id: ID!
     fullName: String
+}
+
+input Login{
+    email: String!
+    password: String!
 }
 
 input FollowUser{
@@ -110,6 +125,7 @@ type Query{
 }
 
 type Mutation{
+    login(credentials: Login):LoggedInUser
     createUser(credentials: CreateUser): User
     editAccount(credentials: EditAccount): User
     createPost(postInfo: CreatePost): Post

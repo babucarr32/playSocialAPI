@@ -1,3 +1,10 @@
+export interface Login {
+  credentials: {
+    email: string;
+    password: string;
+  };
+}
+
 export interface UserType {
   ID: any;
 }

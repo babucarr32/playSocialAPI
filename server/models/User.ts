@@ -17,6 +17,7 @@ export interface UserType extends Document {
   };
   profileImage: { type: string };
   coverImage: { type: string };
+  _doc: any;
 }
 
 export interface UserModel extends Model<UserType> {}

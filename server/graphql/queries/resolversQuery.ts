@@ -1,9 +1,11 @@
 import User from "../../models/User";
 import Post from "../../models/Post";
 import { PostType, UserType } from "../../types/typesVar";
+import { isUserAuth } from "../../actions/checkAuth";
 
 export const getUser = {
-  async user(_: any, { ID }: UserType) {
+  async user(_: any, { ID }: UserType, context: any) {
+    isUserAuth(context);
     return await User.findById(ID);
   },
 };
