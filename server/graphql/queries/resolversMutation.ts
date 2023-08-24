@@ -8,6 +8,7 @@ import {
 } from "../../types/typesVar";
 import User from "../../models/User";
 import Post from "../../models/Post";
+import { isUserAuth } from "../../actions/checkAuth";
 
 const isUserLikedOrDisliked = async (
   field: string,
@@ -38,7 +39,8 @@ const likeOrDislikeVerify = async (
 };
 
 export const createUser = {
-  async createUser(_: any, { credentials }: CreateUser) {
+  async createUser(_: any, { credentials }: CreateUser, context: any) {
+    isUserAuth(context);
     const createUser = new User({ ...credentials });
     const result = await createUser.save();
     return {
@@ -54,7 +56,8 @@ export const createUser = {
 };
 
 export const createPost = {
-  async createPost(_: any, { postInfo }: CreatePost) {
+  async createPost(_: any, { postInfo }: CreatePost, context: any) {
+    isUserAuth(context);
     const createPost = new Post({ ...postInfo });
     const result = await createPost.save();
     return {
@@ -71,7 +74,8 @@ export const createPost = {
 };
 
 export const followUser = {
-  async followUser(_: any, { info }: FollowType) {
+  async followUser(_: any, { info }: FollowType, context: any) {
+    isUserAuth(context);
     try {
       if (info.action == "follow") {
         await User.updateOne(
@@ -106,7 +110,8 @@ export const followUser = {
 };
 
 export const likeOrDislikePost = {
-  async likeOrDislikePost(_: any, { info }: LikeOrDislikeType) {
+  async likeOrDislikePost(_: any, { info }: LikeOrDislikeType, context: any) {
+    isUserAuth(context);
     const handleLikeOrDislike = async (field: "likes" | "dislikes") => {
       await Post.updateOne(
         { _id: info.post_id },
@@ -173,7 +178,8 @@ export const likeOrDislikePost = {
 };
 
 export const commentPost = {
-  async commentPost(_: any, { info }: CommentPostType) {
+  async commentPost(_: any, { info }: CommentPostType, context: any) {
+    isUserAuth(context);
     try {
       await Post.updateOne(
         { _id: info.post_id },
@@ -195,7 +201,8 @@ export const commentPost = {
 };
 
 export const updateCommentPost = {
-  async updateCommentPost(_: any, { info }: CommentPostType) {
+  async updateCommentPost(_: any, { info }: CommentPostType, context: any) {
+    isUserAuth(context);
     try {
       await Post.updateOne(
         {
@@ -217,7 +224,8 @@ export const updateCommentPost = {
 };
 
 export const deleteComment = {
-  async deleteComment(_: any, { info }: DeleteCommentType) {
+  async deleteComment(_: any, { info }: DeleteCommentType, context: any) {
+    isUserAuth(context);
     try {
       await Post.updateOne(
         { _id: info.post_id },

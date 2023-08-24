@@ -12,6 +12,7 @@ import { EditAccount, Login } from "../types/typesVar";
 import User from "../models/User";
 import bcrypt from "bcryptjs";
 import { handleGenerateToken } from "../actions/generateToken";
+import { isUserAuth } from "../actions/checkAuth";
 
 export const resolvers = {
   Query: {
@@ -28,7 +29,8 @@ export const resolvers = {
     ...commentPost,
     ...updateCommentPost,
     ...deleteComment,
-    async editAccount(_: any, { credentials }: EditAccount) {
+    async editAccount(_: any, { credentials }: EditAccount, context: any) {
+      isUserAuth(context);
       try {
         const result = await User.findOneAndUpdate(
           { _id: credentials.id },
