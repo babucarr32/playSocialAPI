@@ -52,5 +52,23 @@ export const resolvers = {
         return "Ooh ohh! something went wrong";
       }
     },
+
+    async updateCommentPost(_: any, { info }: CommentPostType) {
+      console.log(info);
+
+      const result = await Post.updateOne(
+        {
+          _id: info.post_id,
+          "comments.user_id": info.user_id,
+        },
+        {
+          $set: {
+            "comments.$.comment": info.comment,
+          },
+        }
+      );
+
+      console.log(result);
+    },
   },
 };

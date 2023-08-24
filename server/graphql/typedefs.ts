@@ -87,5 +87,6 @@ type Mutation{
     followUser(info: FollowUser): Boolean
     likeOrDislikePost(info: LikeOrDislikePost): String
     commentPost(info: CommentPost): String
+    updateCommentPost(info: CommentPost): String
 }
 `;
