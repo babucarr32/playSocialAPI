@@ -42,7 +42,7 @@ export const resolvers = {
 
     async updateCommentPost(_: any, { info }: CommentPostType) {
       try {
-        const result = await Post.updateOne(
+        await Post.updateOne(
           {
             _id: info.post_id,
             "comments._id": info.comment_id,

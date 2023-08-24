@@ -13,7 +13,7 @@ const likeOrDislikeVerify = async (
   userId: string,
   fullName: string
 ) => {
-  return await Post.findOne({
+  const result = await Post.findOne({
     _id: id,
     [field]: {
       $elemMatch: {
@@ -22,6 +22,8 @@ const likeOrDislikeVerify = async (
       },
     },
   });
+
+  if (result) throw new Error("Forbidden action...");
 };
 
 export const createUser = {
@@ -95,15 +97,13 @@ export const followUser = {
 export const likeOrDislikePost = {
   async likeOrDislikePost(_: any, { info }: LikeOrDislikeType) {
     try {
+      await likeOrDislikeVerify(
+        info.action + "s",
+        info.post_id,
+        info.user_id,
+        info.fullName
+      );
       if (info.action == "like") {
-        let result = await likeOrDislikeVerify(
-          "likes",
-          info.post_id,
-          info.user_id,
-          info.fullName
-        );
-        if (result) return `Forbidden...`;
-
         await Post.updateOne(
           { _id: info.post_id },
           {
@@ -114,14 +114,6 @@ export const likeOrDislikePost = {
         );
       }
       if (info.action == "dislike") {
-        let result = await likeOrDislikeVerify(
-          "dislikes",
-          info.post_id,
-          info.user_id,
-          info.fullName
-        );
-        if (result) return `Forbidden...`;
-
         await Post.updateOne(
           { _id: info.post_id },
           {
@@ -154,8 +146,8 @@ export const likeOrDislikePost = {
         );
       }
       return `${info.action} successful`;
-    } catch (error) {
-      return "Ooh ohh! something went wrong";
+    } catch (error: any) {
+      return error.message;
     }
   },
 };
